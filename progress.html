@@ -254,11 +254,48 @@
 <script>
     const { createApp } = Vue;
 
+    function csvToJson(csv) {
+        const lines = csv.trim().split("\n");
+        // Assume the first row is headers:
+        const headers = lines[0].split(",");
+        const json = [];
+        for (let i = 1; i < lines.length; i++) {
+            const currentLine = lines[i].split(",");
+            const obj = {};
+            for (let j = 0; j < headers.length; j++) {
+                // Trim whitespace in case it exists
+                obj[headers[j].trim()] = currentLine[j] ? currentLine[j].trim() : "";
+            }
+            // Only push if the row is not empty
+            if (Object.values(obj).some(val => val !== "")) {
+                json.push(obj);
+            }
+        }
+        return json;
+    }
     createApp({
         data() {
             return {
-                features: this.loadFeatures() // Load the features from localStorage on initialization
+                features: [], // Initially empty until fetched from GitHub
             };
+        },
+        mounted() {
+            if ('caches' in window) {
+                caches.keys().then(cacheNames => {
+                    cacheNames.forEach(cacheName => {
+                        caches.delete(cacheName);  // This will delete all caches
+                    });
+                });
+            }
+            // Fetch the features data from GitHub on mount
+            fetch('https://raw.githubusercontent.com/Cadosfrit/Kiit_sap_app_progress/main/data.json')
+                .then(response => response.json())
+                .then(data => {
+                this.features = data; // Assign the fetched data to the features array
+            })
+                .catch(error => {
+                console.error("Error fetching data:", error);
+            });
         },
         computed: {
             progress() {
@@ -266,32 +303,9 @@
                 const completed = this.features.filter(f => f.status === 'tick').length;
                 return (completed / total) * 100;
             }
-        },
-        methods: {
-            saveFeatures() {
-                localStorage.setItem('features', JSON.stringify(this.features));
-            },
-            loadFeatures() {
-                const savedFeatures = localStorage.getItem('features');
-                if (savedFeatures) {
-                    return JSON.parse(savedFeatures);
-                } else {
-                    // Default features if none exist in localStorage
-                    return [
-                        { name: "Class Timetable Viewer", status: "cross" },
-                        { name: "Semester Grade Report", status: "cross" },
-                        { name: "Profile Management", status: "cross" },
-                        { name: "Academic Mentor Display", status: "cross" },
-                        { name: "Mentor-Mentee Communication", status: "cross" },
-                        { name: "Grievances and Leave Application", status: "cross" },
-                        { name: "Faculty Feedback Form", status: "cross" },
-                        { name: "Attendance Details", status: "cross" },
-                        { name: "Study Material Downloads", status: "cross" }
-                    ];
-                }
-            }
         }
     }).mount("#app");
+
 </script>
 </body>
 </html>
