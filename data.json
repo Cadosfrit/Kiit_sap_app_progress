@@ -1,0 +1,11 @@
+[
+    { "name": "Class Timetable Viewer", "status": "cross" },
+    { "name": "Semester Grade Report", "status": "cross" },
+    { "name": "Profile Management", "status": "cross" },
+    { "name": "Academic Mentor Display", "status": "cross" },
+    { "name": "Mentor-Mentee Communication", "status": "cross" },
+    { "name": "Grievances and Leave Application", "status": "cross" },
+    { "name": "Faculty Feedback Form", "status": "cross" },
+    { "name": "Attendance Details", "status": "cross" },
+    { "name": "Study Material Downloads", "status": "cross" }
+]
