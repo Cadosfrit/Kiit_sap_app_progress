@@ -9,13 +9,12 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #333;
-      color: #f4f4f9;
+      background-color: #f4f4f9;
       text-align: center;
       padding: 20px;
     }
     h1 {
-      color: #f4f4f9;
+      color: #333;
     }
     .progress-container {
       margin-top: 20px;
@@ -34,7 +33,6 @@
       right: 10px;
       top: -30px;
       font-weight: bold;
-      color: #f4f4f9;
     }
     .features {
       margin-top: 30px;
@@ -55,21 +53,19 @@
       font-size: 18px;
       border: none;
       border-radius: 5px;
-      background-color: #444;
-      color: #f4f4f9;
       transition: background-color 0.2s;
     }
-    .feature button:hover {
-      background-color: #555;
+    .feature button.tick {
+      background-color: #c8e6c9; /* light green for tick */
     }
-    .feature button.completed {
-      background-color: #4caf50; /* Green for completed */
+    .feature button.line {
+      background-color: #fff9c4; /* light yellow for line */
     }
-    .feature button.notCompleted {
-      background-color: #f44336; /* Red for not completed */
+    .feature button.cross {
+      background-color: #ffccbc; /* light red for cross */
     }
-    .feature button.inProgress {
-      background-color: #ff9800; /* Orange for in progress */
+    .feature button.highlighted {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
     button:focus {
       outline: none;
@@ -88,9 +84,21 @@
     <div class="features">
       <div v-for="(feature, index) in features" :key="index" class="feature">
         <strong>{{ feature.name }}</strong>
-        <button :class="getButtonClass(feature.status)" @click="updateFeature(index, 'tick')">✔️</button>
-        <button :class="getButtonClass(feature.status)" @click="updateFeature(index, 'line')">➖</button>
-        <button :class="getButtonClass(feature.status)" @click="updateFeature(index, 'cross')">❌</button>
+        <button 
+          @click="updateFeature(index, 'tick')" 
+          :class="['tick', { highlighted: feature.status === 'tick' }]">
+          ✔️
+        </button>
+        <button 
+          @click="updateFeature(index, 'line')" 
+          :class="['line', { highlighted: feature.status === 'line' }]">
+          ➖
+        </button>
+        <button 
+          @click="updateFeature(index, 'cross')" 
+          :class="['cross', { highlighted: feature.status === 'cross' }]">
+          ❌
+        </button>
       </div>
     </div>
   </div>
@@ -101,7 +109,6 @@
     createApp({
       data() {
         return {
-          // Define your features. You can add more as needed.
           features: [
             { name: "Feature 1", status: "none" },
             { name: "Feature 2", status: "none" },
@@ -116,7 +123,6 @@
         };
       },
       computed: {
-        // Compute the overall progress based on how many features are marked as 'tick'
         progress() {
           const total = this.features.length;
           const completed = this.features.filter(f => f.status === 'tick').length;
@@ -125,18 +131,14 @@
       },
       methods: {
         updateFeature(index, status) {
-          // Update the feature's status. You could add additional logic here.
           this.features[index].status = status;
-        },
-        getButtonClass(status) {
-          if (status === 'tick') return 'completed';
-          if (status === 'line') return 'inProgress';
-          if (status === 'cross') return 'notCompleted';
-          return '';
         }
       }
     }).mount("#app");
   </script>
+</body>
+</html>
+
 </body>
 </html>
 
