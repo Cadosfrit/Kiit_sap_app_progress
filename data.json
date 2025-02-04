@@ -1,8 +1,8 @@
 [
     { "name": "Class Timetable Viewer", "status": "cross" },
     { "name": "Semester Grade Report", "status": "tick" },
-    { "name": "Profile Management", "status": "cross" },
-    { "name": "Academic Mentor Display", "status": "cross" },
+    { "name": "Profile Management", "status": "line" },
+    { "name": "Academic Mentor Display", "status": "tick" },
     { "name": "Mentor-Mentee Communication", "status": "cross" },
     { "name": "Grievances and Leave Application", "status": "cross" },
     { "name": "Faculty Feedback Form", "status": "cross" },
