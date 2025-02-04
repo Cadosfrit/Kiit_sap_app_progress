@@ -9,12 +9,13 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background-color: #333;
+      color: #f4f4f9;
       text-align: center;
       padding: 20px;
     }
     h1 {
-      color: #333;
+      color: #f4f4f9;
     }
     .progress-container {
       margin-top: 20px;
@@ -33,6 +34,7 @@
       right: 10px;
       top: -30px;
       font-weight: bold;
+      color: #f4f4f9;
     }
     .features {
       margin-top: 30px;
@@ -53,11 +55,21 @@
       font-size: 18px;
       border: none;
       border-radius: 5px;
-      background-color: #ddd;
+      background-color: #444;
+      color: #f4f4f9;
       transition: background-color 0.2s;
     }
     .feature button:hover {
-      background-color: #ccc;
+      background-color: #555;
+    }
+    .feature button.completed {
+      background-color: #4caf50; /* Green for completed */
+    }
+    .feature button.notCompleted {
+      background-color: #f44336; /* Red for not completed */
+    }
+    .feature button.inProgress {
+      background-color: #ff9800; /* Orange for in progress */
     }
     button:focus {
       outline: none;
@@ -76,9 +88,9 @@
     <div class="features">
       <div v-for="(feature, index) in features" :key="index" class="feature">
         <strong>{{ feature.name }}</strong>
-        <button @click="updateFeature(index, 'tick')">✔️</button>
-        <button @click="updateFeature(index, 'line')">➖</button>
-        <button @click="updateFeature(index, 'cross')">❌</button>
+        <button :class="getButtonClass(feature.status)" @click="updateFeature(index, 'tick')">✔️</button>
+        <button :class="getButtonClass(feature.status)" @click="updateFeature(index, 'line')">➖</button>
+        <button :class="getButtonClass(feature.status)" @click="updateFeature(index, 'cross')">❌</button>
       </div>
     </div>
   </div>
@@ -115,9 +127,16 @@
         updateFeature(index, status) {
           // Update the feature's status. You could add additional logic here.
           this.features[index].status = status;
+        },
+        getButtonClass(status) {
+          if (status === 'tick') return 'completed';
+          if (status === 'line') return 'inProgress';
+          if (status === 'cross') return 'notCompleted';
+          return '';
         }
       }
     }).mount("#app");
   </script>
 </body>
 </html>
+
