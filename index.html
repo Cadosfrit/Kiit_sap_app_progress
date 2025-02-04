@@ -257,17 +257,7 @@
     createApp({
         data() {
             return {
-                features: [
-                    { name: "Class Timetable Viewer", status: "cross" },
-                    { name: "Semester Grade Report", status: "cross" },
-                    { name: "Profile Management", status: "cross" },
-                    { name: "Academic Mentor Display", status: "cross" },
-                    { name: "Mentor-Mentee Communication", status: "cross" },
-                    { name: "Grievances and Leave Application", status: "cross" },
-                    { name: "Faculty Feedback Form", status: "cross" },
-                    { name: "Attendance Details", status: "cross" },
-                    { name: "Study Material Downloads", status: "cross" }
-                ]
+                features: this.loadFeatures() // Load the features from localStorage on initialization
             };
         },
         computed: {
@@ -280,6 +270,29 @@
         methods: {
             updateFeature(index, status) {
                 this.features[index].status = status;
+                this.saveFeatures(); // Save the updated state to localStorage
+            },
+            saveFeatures() {
+                localStorage.setItem('features', JSON.stringify(this.features));
+            },
+            loadFeatures() {
+                const savedFeatures = localStorage.getItem('features');
+                if (savedFeatures) {
+                    return JSON.parse(savedFeatures);
+                } else {
+                    // Default features if none exist in localStorage
+                    return [
+                        { name: "Class Timetable Viewer", status: "cross" },
+                        { name: "Semester Grade Report", status: "cross" },
+                        { name: "Profile Management", status: "cross" },
+                        { name: "Academic Mentor Display", status: "cross" },
+                        { name: "Mentor-Mentee Communication", status: "cross" },
+                        { name: "Grievances and Leave Application", status: "cross" },
+                        { name: "Faculty Feedback Form", status: "cross" },
+                        { name: "Attendance Details", status: "cross" },
+                        { name: "Study Material Downloads", status: "cross" }
+                    ];
+                }
             }
         }
     }).mount("#app");
