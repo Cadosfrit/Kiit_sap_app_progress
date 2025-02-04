@@ -1,6 +1,6 @@
 [
     { "name": "Class Timetable Viewer", "status": "tick" },
-    { "name": "Semester Grade Report", "status": "line" },
+    { "name": "Semester Grade Report", "status": "tick" },
     { "name": "Profile Management", "status": "tick" },
     { "name": "Academic Mentor Display", "status": "tick" },
     { "name": "Mentor-Mentee Communication", "status": "tick" },
