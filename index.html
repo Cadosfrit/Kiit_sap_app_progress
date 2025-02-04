@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue Feature Progress Tracker</title>
+  <!-- Include Vue from CDN -->
+  <script src="https://unpkg.com/vue@3"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .progress-container {
+      margin-top: 20px;
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    progress {
+      width: 100%;
+      height: 30px;
+    }
+    #progressPercentage {
+      position: absolute;
+      right: 10px;
+      top: -30px;
+      font-weight: bold;
+    }
+    .features {
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .feature {
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .feature button {
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ddd;
+      transition: background-color 0.2s;
+    }
+    .feature button:hover {
+      background-color: #ccc;
+    }
+    button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>Feature Progress Tracker</h1>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <progress :value="progress" max="100"></progress>
+      <span id="progressPercentage">{{ Math.round(progress) }}%</span>
+    </div>
+    <!-- Features List -->
+    <div class="features">
+      <div v-for="(feature, index) in features" :key="index" class="feature">
+        <strong>{{ feature.name }}</strong>
+        <button @click="updateFeature(index, 'tick')">✔️</button>
+        <button @click="updateFeature(index, 'line')">➖</button>
+        <button @click="updateFeature(index, 'cross')">❌</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      data() {
+        return {
+          // Define your features. You can add more as needed.
+          features: [
+            { name: "Feature 1", status: "none" },
+            { name: "Feature 2", status: "none" },
+            { name: "Feature 3", status: "none" },
+            { name: "Feature 4", status: "none" },
+            { name: "Feature 5", status: "none" },
+            { name: "Feature 6", status: "none" },
+            { name: "Feature 7", status: "none" },
+            { name: "Feature 8", status: "none" },
+            { name: "Feature 9", status: "none" }
+          ]
+        };
+      },
+      computed: {
+        // Compute the overall progress based on how many features are marked as 'tick'
+        progress() {
+          const total = this.features.length;
+          const completed = this.features.filter(f => f.status === 'tick').length;
+          return (completed / total) * 100;
+        }
+      },
+      methods: {
+        updateFeature(index, status) {
+          // Update the feature's status. You could add additional logic here.
+          this.features[index].status = status;
+        }
+      }
+    }).mount("#app");
+  </script>
+</body>
+</html>
