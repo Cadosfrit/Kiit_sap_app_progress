@@ -5,6 +5,6 @@
     { "name": "Academic Mentor Display", "status": "tick" },
     { "name": "Mentor-Mentee Communication", "status": "tick" },
     { "name": "Grievances and Leave Application", "status": "tick" },
-    { "name": "Attendance Details", "status": "cross" },
+    { "name": "Attendance Details", "status": "tick" },
     { "name": "Study Material Downloads", "status": "cross" }
 ]
