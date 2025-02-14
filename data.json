@@ -6,5 +6,5 @@
     { "name": "Mentor-Mentee Communication", "status": "tick" },
     { "name": "Grievances and Leave Application", "status": "tick" },
     { "name": "Attendance Details", "status": "tick" },
-    { "name": "Study Material Downloads", "status": "cross" }
+    { "name": "Study Material Downloads", "status": "tick" }
 ]
